@@ -1,4 +1,8 @@
 import { useParams } from 'react-router-dom';
+import { useAsyncFetch } from '../../hooks/useAsyncFetch';
+import Spinner from '../../components/Spinner/Spinner';
+import { Post } from '../../@types/post';
+import { useState } from 'react';
 
 function Article() {
   // Pour récupérer les paramètres de l'url, on utilise le hook useParams
@@ -8,7 +12,24 @@ function Article() {
     throw new Error("l'url ne contient pas d'id");
   }
 
-  return <div>Mon Article {id}</div>;
+  // {data: post} me permet de renommé la propriété `data` retourner par useAsyncFetch en `post`
+  const { data: post, isLoading } = useAsyncFetch<Post>(
+    `https://oblog-react.vercel.app/api/posts/${id}`
+  );
+
+  return (
+    <main>
+      {isLoading && <Spinner />}
+      {/* la donnée récupérer depuis mon API n'est pas tout de suite présente... */}
+      {/* (tant que l'API ne m'a pas répondu, `post` === undefined) */}
+      {/* On va donc conditionner l'affichage de l'article à l'existance de ma donnée */}
+      {post && (
+        <article>
+          <h1>{post.title}</h1>
+        </article>
+      )}
+    </main>
+  );
 }
 
 export default Article;
