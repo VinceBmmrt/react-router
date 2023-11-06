@@ -13,3 +13,7 @@ export type Post = {
   content: string;
   category: Category;
 };
+
+// Omit est un type utilitaire (https://www.typescriptlang.org/docs/handbook/utility-types.html#omittype-keys)
+// Il permet de créer un nouveau type en retirant des propriétés d'un autre type
+export type PostWithoutCategory = Omit<Post, 'category'>;

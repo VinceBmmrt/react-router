@@ -1,8 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useAsyncFetch } from '../../hooks/useAsyncFetch';
 import Spinner from '../../components/Spinner/Spinner';
-import { Post } from '../../@types/post';
-import { useState } from 'react';
+import { PostWithoutCategory } from '../../@types/post';
 
 function Article() {
   // Pour récupérer les paramètres de l'url, on utilise le hook useParams
@@ -17,7 +16,9 @@ function Article() {
     data: post,
     isLoading,
     error,
-  } = useAsyncFetch<Post>(`https://oblog-react.vercel.app/api/posts/${id}`);
+  } = useAsyncFetch<PostWithoutCategory>(
+    `https://oblog-react.vercel.app/api/posts/${id}`
+  );
 
   // Si l'API me retourne une erreur, je déclanche l'erreur pour pouvoir afficher le composant définis dans errorElement de mon router
   if (error) {
@@ -33,6 +34,7 @@ function Article() {
       {post && (
         <article>
           <h1>{post.title}</h1>
+          <p>{post.content}</p>
         </article>
       )}
     </main>
