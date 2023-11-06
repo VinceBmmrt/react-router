@@ -13,9 +13,16 @@ function Article() {
   }
 
   // {data: post} me permet de renommé la propriété `data` retourner par useAsyncFetch en `post`
-  const { data: post, isLoading } = useAsyncFetch<Post>(
-    `https://oblog-react.vercel.app/api/posts/${id}`
-  );
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useAsyncFetch<Post>(`https://oblog-react.vercel.app/api/posts/${id}`);
+
+  // Si l'API me retourne une erreur, je déclanche l'erreur pour pouvoir afficher le composant définis dans errorElement de mon router
+  if (error) {
+    throw error;
+  }
 
   return (
     <main>
