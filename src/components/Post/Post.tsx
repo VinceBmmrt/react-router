@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { Post as TPost } from '../../@types/post';
 import './Post.scss';
@@ -17,6 +18,9 @@ function Post({ post }: PostProps) {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: purifiedHtml }}
       />
+      <Link to={`/article/${post.id}`} className="post-link">
+        Lire la suite
+      </Link>
     </article>
   );
 }

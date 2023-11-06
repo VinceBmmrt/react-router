@@ -4,6 +4,7 @@ import Root from './routes/Root/Root';
 import Home from './routes/Home/Home';
 import Category from './routes/Category/Category';
 import NotFound from './components/NotFound/NotFound';
+import Article from './routes/Article/Article';
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
         // Et on spécifiera à quel endroit dans le composant parent on affichera cet élément
         path: '/category/:slug',
         element: <Category />,
+      },
+      {
+        path: '/article/:id',
+        element: <Article />,
       },
     ],
   },
