@@ -1,6 +1,9 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Category } from '../../@types/post';
 import './Header.scss';
+
+import { ZenContext } from '../../contexts/zenMode';
 
 // type SetterState<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -12,8 +15,13 @@ type HeaderProps = {
   setZenMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 function Header({ categories, zenMode, setZenMode }: HeaderProps) {
+  const { zenMode: zenModeContext } = useContext(ZenContext);
   return (
-    <header className="menu" id="header">
+    <header
+      className="menu"
+      id="header"
+      style={{ backgroundColor: zenModeContext ? '#0F0' : '#F0F' }}
+    >
       <nav className="menu-nav">
         <NavLink
           // La particularité du NavLink est que l'on peut lui passer une fonction dans className (dans style également)
